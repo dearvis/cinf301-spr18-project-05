@@ -8,14 +8,14 @@
 @section('content')
     @if(count($errors) > 0)
     <div class="row">
-           <div class="col-md-6 col-md-offset-3">
+           <div class="col-md-3 col-md-offset-3">
              <ul>
                  @foreach($errors->all() as $error)
                      <li>{{$error}}</li>
                      @endforeach
              </ul>
            </div>
-    </div>
+
     @endif
                <div class="panel panel-login">
                    <div class="panel-heading">
@@ -51,12 +51,13 @@
              </form>
 
     </div>
+ </div>
 
  <div class="row">
     <div class="col-md-6 col-md-offset-3">
 
     </div>
- </div>
+
         <h3>Log in</h3>
 
         <form action="{{ route('signin') }}" method="post">
@@ -90,13 +91,10 @@
             </div>
         </form>
     </div>
-                       </div>
+ </div>
+    </div>
 
-                   </div>
-               </div>
 
-           </div>
-       </div>
 
 
 @endsection
