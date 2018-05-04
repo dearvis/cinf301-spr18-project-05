@@ -26,8 +26,28 @@ Route::group(['middleware' =>['web']], function (){
         'as' => 'signin'
     ]);
 
+    Route::get('/logout', [
+        'uses' => 'UserController@getLogout',
+        'as' => 'logout'
+    ]);
+
+    Route::get('/account', [
+        'uses' => 'UserController@getAccount',
+        'as' => 'account'
+    ]);
+
+    Route::post('/updateaccount', [
+        'uses' => 'UserController@postSaveAccount',
+        'as' => 'account.save'
+    ]);
+
+    Route::get('/userimage/{filename}', [
+        'uses' => 'UserController@getUserImage',
+        'as' => 'account.image'
+    ]);
+
     Route::get('/dashboard', [
-        'uses' => 'UserController@getDashboard',
+        'uses' => 'postController@getDashboard',
         'as' => 'dashboard',
         'middleware' => 'auth'
     ]);
@@ -36,4 +56,16 @@ Route::group(['middleware' =>['web']], function (){
         'uses' => 'UserController@getAccessDenied',
         'as' => 'accessdenied'
     ]);
+
+    Route::post('/createpost', [
+        'uses' => 'postController@postCreatePost',
+        'as' => 'post.create',
+        'middleware' => 'auth'
+    ]);
+    Route::get('/delete-post/{post_id}', [
+        'uses' => 'postController@getDeletePost',
+        'as' => 'post.delete',
+        'middleware' => 'auth'
+    ]);
+
 });
