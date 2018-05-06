@@ -9,7 +9,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand"  href="{{ route('dashboard') }}">Welcome</a>
+        <a class="navbar-brand"  href="{{ route('dashboard') }}">DeArvisBook</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->

@@ -11,7 +11,7 @@
         <form action="{{ route('account.save') }}" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="username"> username</label>
-        <input type="text" name="first_name" class="form-control" value="{{ $user->username }}" id ="username">
+        <input type="text" name="username" class="form-control" value="{{ $user->username }}" id ="username">
     </div>
             <div class="form-group">
                 <label for="image">Image (only .jpg please...)</label>
@@ -26,6 +26,7 @@
     <section class="row new-post">
         <div class="col-md-6 col-md-offset-3">
             <img src="{{route('account.image',['filename' => $user->username . '-' . $user->id . 'jpg'])}}" alt="" class="img-responsive">
+            <input type="file" name="img">
         </div>
     </section>
     @endif

@@ -2,7 +2,7 @@
 @extends('layouts.master')
 
 @section('title')
-        Welcome
+        DearvisBook
 @endsection
 
 @section('content')

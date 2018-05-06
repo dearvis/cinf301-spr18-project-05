@@ -2,10 +2,12 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use http\Env\Response;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Image;
 
 class UserController extends Controller
 {
@@ -61,32 +63,37 @@ class UserController extends Controller
         return view('account', ['user' => Auth::user()]);
     }
 
-    public function getUserImage($filename)
-    {
-        $file = Storage::disk('local')->get($filename);
-        return new Response($file,200);
-    }
+
+            public function getUserImage($request)
+        {
+            //Instance 1 did not work so made another way to try and retrieve image
+            if($request->hashFile('img'))
+            {
+                $avatar = $request->file('img');
+                $filename = time() . '.' . $avatar->getClientOriginalExtension();
+                Image::make($avatar)->resize(300,300)->save( Storage::disk('local')->put($filename, File::get($request)));
+                $avatar = new avatar();
+                $avatar->avatar_img = $filename;
+                $avatar->save();
+            }
+            $file = Storage::disk('local')->get($filename);
+            return new Response($file,200);
+
+        }
 
     public function postSaveAccount(Request $request)
     {
         $this->validate($request,[
             'username' => 'required|max:75'
         ]);
-        $user = Auth::user();
-        $old_name = $user->username;
+        $user = new user();
         $user->username = $request['username'];
         $user->update();
-        $file = $request->file('image');
-        $filename = $request['filename'] . '-' . $user->id . '.jpg';
-        $old_filename = $old_name . '-' . $user->id . '.jpg';
-        $update = false;
+        $file = $request->file('img');
+        $filename = $request['username'] . '-' . $user->id . '.jpg';
         if($file)
             {
-               Storage::disk(local)->put($filename, File::get($file));
-            }
-            if ($update && $old_filename !== $filename)
-            {
-                Storage::delete($old_filename);
+               Storage::disk('local')->put($filename, File::get($file));
             }
             return redirect()->route('account');
     }
